@@ -1,0 +1,175 @@
+## 1. Navigation & Files
+
+| Command | What it does |
+|---|---|
+| `pwd` | Print current directory (where am I?) |
+| `ls` | List files in current directory |
+| `ls -la` | List **all** files (incl. hidden), long format (permissions, owner, size, date) |
+| `ls -lh` | Long format, human-readable sizes (KB/MB/GB) |
+| `cd foldername` | Move into a folder |
+| `cd ..` | Move up one directory |
+| `cd ~` or `cd` | Go to home directory |
+| `cd -` | Go back to previous directory |
+| `mkdir foldername` | Make a new directory |
+| `mkdir -p a/b/c` | Make nested directories in one shot |
+| `touch file.txt` | Create an empty file (or update its timestamp) |
+| `cp file1 file2` | Copy file1 to file2 |
+| `cp -r dir1 dir2` | Copy a directory recursively |
+| `mv file1 file2` | Move or rename a file |
+| `rm file.txt` | Delete a file |
+| `rm -r foldername` | Delete a folder and its contents (careful!) |
+| `rm -rf foldername` | Force delete, no prompts (**very careful**) |
+| `find / -name "file.txt"` | Search the whole filesystem for a file by name |
+| `find . -type f -mtime -1` | Find files modified in the last 1 day (forensics-useful) |
+| `locate filename` | Fast file search using an index (needs `updatedb`) |
+| `tree` | Show directory structure as a tree (may need install) |
+
+---
+
+## 2. Viewing & Editing Files
+
+| Command | What it does |
+|---|---|
+| `cat file.txt` | Print entire file to screen |
+| `less file.txt` | View file page-by-page (`q` to quit, `/word` to search) |
+| `head file.txt` | Show first 10 lines |
+| `head -n 50 file.txt` | Show first 50 lines |
+| `tail file.txt` | Show last 10 lines |
+| `tail -f /var/log/auth.log` | **Live-follow** a file as it grows (great for watching logs) |
+| `nano file.txt` | Beginner-friendly terminal text editor |
+| `vim file.txt` | Powerful but steeper-learning-curve editor |
+| `wc -l file.txt` | Count lines in a file |
+| `diff file1 file2` | Show differences between two files |
+
+---
+
+## 3. Searching Text (you'll use this constantly)
+
+| Command | What it does |
+|---|---|
+| `grep "word" file.txt` | Find lines containing "word" |
+| `grep -i "word" file.txt` | Case-insensitive search |
+| `grep -r "word" ./` | Recursively search all files in a directory |
+| `grep -v "word" file.txt` | Show lines that **don't** match |
+| `grep -c "word" file.txt` | Count matching lines |
+| `grep -E "fail|error" log.txt` | Search for multiple patterns (extended regex) |
+| `cat log.txt \| grep "failed login"` | Pipe output of one command into grep |
+| `awk '{print $1}' file.txt` | Print the 1st column of each line |
+| `sed 's/old/new/g' file.txt` | Find & replace text |
+| `sort file.txt` | Sort lines alphabetically |
+| `sort -n file.txt` | Sort numerically |
+| `uniq` | Remove duplicate adjacent lines (often used with `sort \| uniq`) |
+| `sort file.txt \| uniq -c \| sort -nr` | Count & rank frequency of lines (e.g. most common IP in a log) |
+
+---
+
+## 4. Permissions & Ownership (core security concept)
+
+| Command | What it does |
+|---|---|
+| `ls -l` | Shows permissions like `-rwxr-xr--` |
+| `chmod 755 file.sh` | Set permissions (owner: rwx, group: r-x, other: r-x) |
+| `chmod +x script.sh` | Make a file executable |
+| `chown user:group file.txt` | Change file owner/group |
+| `sudo command` | Run a command as superuser/root |
+| `whoami` | Show current logged-in user |
+| `id` | Show your user ID, group ID, and group memberships |
+| `su username` | Switch to another user |
+
+**Permission string cheat:** `r`=read(4), `w`=write(2), `x`=execute(1). `rwxr-xr--` = owner has all 3, group has read+execute, others have read only.
+
+---
+
+## 5. Processes & System Monitoring
+
+| Command | What it does |
+|---|---|
+| `ps aux` | List all running processes |
+| `top` | Live view of running processes & resource usage |
+| `htop` | Nicer version of `top` (may need install) |
+| `kill PID` | Stop a process by its process ID |
+| `kill -9 PID` | Force-kill a process |
+| `killall processname` | Kill all processes matching a name |
+| `df -h` | Show disk space usage (human-readable) |
+| `du -sh foldername` | Show size of a specific folder |
+| `free -h` | Show RAM usage |
+| `uptime` | How long the system has been running |
+| `history` | Show your command history |
+
+---
+
+## 6. Networking (essential for security work)
+
+| Command | What it does |
+|---|---|
+| `ip a` | Show network interfaces & IP addresses |
+| `ifconfig` | Older version of `ip a` (may not be installed by default) |
+| `ping google.com` | Test connectivity to a host |
+| `netstat -tulnp` | Show listening ports and the processes using them |
+| `ss -tulnp` | Modern replacement for `netstat` |
+| `curl https://site.com` | Fetch a URL's contents from the command line |
+| `wget https://site.com/file` | Download a file |
+| `nslookup domain.com` | Look up DNS info for a domain |
+| `dig domain.com` | More detailed DNS lookup |
+| `traceroute domain.com` | Show the network path to a host |
+| `nmap 192.168.1.1` | Scan a host for open ports (needs install; only scan systems you're authorized to) |
+| `ssh user@host` | Connect to a remote machine securely |
+| `scp file user@host:/path` | Copy a file to/from a remote machine over SSH |
+
+---
+
+## 7. Archives & Compression
+
+| Command | What it does |
+|---|---|
+| `tar -cvf archive.tar folder/` | Create a tar archive |
+| `tar -xvf archive.tar` | Extract a tar archive |
+| `tar -czvf archive.tar.gz folder/` | Create a compressed (.tar.gz) archive |
+| `tar -xzvf archive.tar.gz` | Extract a .tar.gz archive |
+| `zip -r archive.zip folder/` | Zip a folder |
+| `unzip archive.zip` | Unzip a file |
+
+---
+
+## 8. Users & Package Management
+
+| Command | What it does |
+|---|---|
+| `adduser username` | Create a new user |
+| `passwd username` | Change a user's password |
+| `deluser username` | Remove a user |
+| `apt update && apt upgrade` | Update package lists & upgrade (Debian/Ubuntu) |
+| `apt install packagename` | Install a package (Debian/Ubuntu) |
+| `yum install packagename` | Install a package (RHEL/CentOS) |
+| `which programname` | Show the path to an executable |
+
+---
+
+## 9. Redirection & Pipes (glue that makes Linux powerful)
+
+| Symbol | What it does |
+|---|---|
+| `\|` | Pipe — send output of one command into another |
+| `>` | Redirect output to a file (overwrite) |
+| `>>` | Redirect output to a file (append) |
+| `<` | Take input from a file |
+| `&&` | Run second command only if first succeeds |
+| `;` | Run commands sequentially regardless of success |
+| `2>&1` | Redirect error output along with standard output |
+
+**Example combo:** `grep "failed" auth.log | awk '{print $9}' | sort | uniq -c | sort -nr`
+→ finds failed logins, pulls out the IP/user field, and ranks by frequency. This exact pattern shows up constantly in log analysis.
+
+---
+
+## 10. Quick Reference: Keyboard Shortcuts
+
+| Shortcut | What it does |
+|---|---|
+| `Ctrl + C` | Kill the current running command |
+| `Ctrl + Z` | Suspend current process (resume with `fg`) |
+| `Ctrl + R` | Search command history |
+| `Ctrl + L` | Clear the screen |
+| `Tab` | Auto-complete file/command names |
+| `!!` | Repeat last command |
+| `!$` | Reuse last argument from previous command |
